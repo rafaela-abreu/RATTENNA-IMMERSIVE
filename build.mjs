@@ -5,5 +5,6 @@ await mkdir('dist', { recursive: true });
 await cp('index.html', 'dist/index.html');
 await cp('styles.css', 'dist/styles.css');
 await cp('app.js', 'dist/app.js');
+await cp('rattenna-mark.svg', 'dist/rattenna-mark.svg');
 await cp('public', 'dist/public', { recursive: true });
 console.log('Built dist/ for Rattenna Tecnologia');
