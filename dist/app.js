@@ -25,27 +25,58 @@ const updateSceneTilt = (clientX, clientY) => {
 
 window.addEventListener('pointermove', (event) => updateSceneTilt(event.clientX, event.clientY), { passive: true });
 
+function getAudioContext() {
+  if (!audioContext) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return null;
+    audioContext = new AudioContextClass();
+  }
+  if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
+  return audioContext;
+}
+
+function playGrabSound() {
+  const context = getAudioContext();
+  if (!context) return;
+  const now = context.currentTime;
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  const filter = context.createBiquadFilter();
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(180, now);
+  oscillator.frequency.exponentialRampToValueAtTime(520, now + .12);
+  filter.type = 'bandpass';
+  filter.frequency.value = 720;
+  filter.Q.value = 4;
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(.075, now + .025);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + .24);
+  oscillator.connect(filter).connect(gain).connect(context.destination);
+  oscillator.start(now);
+  oscillator.stop(now + .26);
+}
+
 function startEngine() {
-  if (!audioContext) audioContext = new AudioContext();
-  if (audioContext.state === 'suspended') audioContext.resume();
+  const context = getAudioContext();
+  if (!context) return;
   if (engineOscillator) return;
-  engineOscillator = audioContext.createOscillator();
-  const harmonic = audioContext.createOscillator();
-  engineGain = audioContext.createGain();
-  const harmonicGain = audioContext.createGain();
-  const filter = audioContext.createBiquadFilter();
+  engineOscillator = context.createOscillator();
+  const harmonic = context.createOscillator();
+  engineGain = context.createGain();
+  const harmonicGain = context.createGain();
+  const filter = context.createBiquadFilter();
   engineOscillator.type = 'sawtooth';
-  engineOscillator.frequency.setValueAtTime(96, audioContext.currentTime);
-  engineOscillator.frequency.exponentialRampToValueAtTime(155, audioContext.currentTime + .45);
+  engineOscillator.frequency.setValueAtTime(96, context.currentTime);
+  engineOscillator.frequency.exponentialRampToValueAtTime(155, context.currentTime + .45);
   harmonic.type = 'triangle';
   harmonic.frequency.setValueAtTime(194, audioContext.currentTime);
   filter.type = 'lowpass';
   filter.frequency.setValueAtTime(760, audioContext.currentTime);
-  engineGain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-  engineGain.gain.exponentialRampToValueAtTime(0.045, audioContext.currentTime + .12);
+  engineGain.gain.setValueAtTime(0.0001, context.currentTime);
+  engineGain.gain.exponentialRampToValueAtTime(0.045, context.currentTime + .12);
   harmonicGain.gain.value = .012;
-  engineOscillator.connect(filter).connect(engineGain).connect(audioContext.destination);
-  harmonic.connect(harmonicGain).connect(audioContext.destination);
+  engineOscillator.connect(filter).connect(engineGain).connect(context.destination);
+  harmonic.connect(harmonicGain).connect(context.destination);
   engineOscillator.start();
   harmonic.start();
   ship._harmonic = harmonic;
@@ -96,6 +127,7 @@ ship.addEventListener('pointerdown', (event) => {
   dragOrigin = { x: event.clientX, y: event.clientY };
   shipOrigin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
   lastShipPoint = { x: event.clientX, y: event.clientY };
+  playGrabSound();
   startEngine();
   spawnPulse(shipOrigin.x, shipOrigin.y);
 });

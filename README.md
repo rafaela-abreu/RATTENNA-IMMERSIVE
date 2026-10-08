@@ -4,7 +4,7 @@ Site imersivo da **Rattenna Tecnologia**, criado por **Rafaela Abreu — Engenhe
 
 ## Acessar o site
 
-**[Abrir o site da Rattenna Tecnologia](https://3000-ilqxfvdhtwwvxbskwlua2-bbcdcc5f.us1.manus.computer/)**
+**[Abrir o site da Rattenna Tecnologia](https://rafaela-abreu.github.io/RATTENNA-IMMERSIVE/)**
 
 A experiência inclui uma cena cósmica viva, nave espacial arrastável por toque e mouse, áudio espacial, serviços de automação, correção de bugs, programação, gestão de anúncios e publicidade.
 
