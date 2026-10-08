@@ -65,13 +65,13 @@ h1 em, h2 em { color: var(--cyan); font-style: normal; text-shadow: 0 0 30px rgb
 .coordinate-readout span:first-child { color: var(--cyan); }
 .scroll-cue { position: absolute; z-index: 4; right: clamp(22px, 5vw, 78px); bottom: 52px; display: flex; flex-direction: column; gap: 13px; align-items: flex-end; color: rgba(235,249,245,.55); font: 8px/1 'IBM Plex Mono', monospace; letter-spacing: .18em; }
 .scroll-cue b { display: block; width: 1px; height: 48px; background: linear-gradient(var(--cyan), transparent); animation: scroll-line 2.4s ease-in-out infinite; }
-.spaceship { --ship-angle: 0deg; position: fixed; z-index: 11; left: var(--ship-x); top: var(--ship-y); width: 88px; height: 88px; transform: translate(-50%, -50%) rotate(var(--ship-angle)); cursor: grab; touch-action: none; user-select: none; outline: none; transition: filter .3s ease; }
+.spaceship { --ship-angle: 0deg; position: fixed; z-index: 11; left: var(--ship-x); top: var(--ship-y); width: 100px; height: 100px; transform: translate(-50%, -50%) rotate(var(--ship-angle)); cursor: grab; touch-action: none; user-select: none; outline: none; transition: filter .3s ease; }
 .spaceship::before { content: ''; position: absolute; inset: -22px; border: 1px solid rgba(101,243,238,.13); border-radius: 50%; transform: scaleX(1.85) rotate(-24deg); opacity: .5; }
 .spaceship:focus-visible::before, .spaceship[data-dragging='true']::before { border-color: var(--cyan); box-shadow: 0 0 25px var(--cyan-soft); }
 .spaceship[data-dragging='true'] { cursor: grabbing; filter: drop-shadow(0 0 18px rgba(101,243,238,.85)) drop-shadow(0 0 34px rgba(255,104,95,.42)); }
 .ship-halo { position: absolute; inset: 10px; border-radius: 50%; background: radial-gradient(circle, rgba(101,243,238,.29), transparent 66%); filter: blur(9px); animation: ship-pulse 2.5s ease-in-out infinite; }
 .ship-trail { position: absolute; width: 62px; height: 12px; top: 38px; right: 42px; background: linear-gradient(90deg, transparent, var(--coral), var(--cyan)); filter: blur(6px); opacity: .45; transform: skewX(-25deg); transform-origin: right center; }
-.ship-body { position: absolute; inset: 18px; transform: rotate(-12deg); filter: drop-shadow(0 0 7px rgba(148,253,255,.8)); }
+.ship-image { position: absolute; inset: -8px; width: 116px; height: 116px; object-fit: contain; transform: rotate(-12deg); filter: drop-shadow(0 0 7px rgba(148,253,255,.8)) drop-shadow(0 0 13px rgba(255,111,84,.34)); pointer-events: none; }
 .ship-wing { position: absolute; width: 29px; height: 17px; top: 27px; background: linear-gradient(135deg, rgba(220,255,249,.98), rgba(78,151,176,.92)); border: 1px solid rgba(216,255,250,.9); clip-path: polygon(0 50%, 100% 0, 76% 100%); }
 .ship-wing--left { left: -5px; transform: rotate(-28deg); }
 .ship-wing--right { right: -5px; transform: scaleX(-1) rotate(-28deg); }
