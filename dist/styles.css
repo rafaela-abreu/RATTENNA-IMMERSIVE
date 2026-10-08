@@ -137,6 +137,7 @@ h1 em, h2 em { color: var(--cyan); font-style: normal; text-shadow: 0 0 30px rgb
   .scene-note p { margin-top: 12px; font-size: 11px; }
   .scroll-cue { display: none; }
   .spaceship { width: 76px; height: 76px; }
+  .ship-image { inset: -3px; width: 88px; height: 88px; }
   .services-grid { grid-template-columns: 1fr; }
   .service-card { min-height: 225px; }
   .contact-links a { min-width: 100%; }
